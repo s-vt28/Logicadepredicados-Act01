@@ -37,13 +37,48 @@ abuelo_materno(X,Y) :- padre(X,Z), madre(Z,Y).
 abuela_paterna(X,Y) :- madre(X,Z), padre(Z,Y).
 abuela_materna(X,Y) :- madre(X,Z), madre(Z,Y).
 
+hermano(X,Y) :- padre(Z,X), padre(Z,Y), madre(W,X), madre(W,Y), X\=Y.  % X\=Y  es para evitar que alguien sea su propio hermano.
+hermana(X,Y) :- hermano(X,Y),mujer(X).
+
 hermano(X,Y) :- padre(Z,X), padre(Z,Y), madre(M,X), madre(M,Y), X\=Y.  % X\=Y  es para evitar que alguien sea su propio hermano.
 hermana(X,Y) :- hermano(X,Y),mujer(X).
 
+tia(X,Y) :- hermano(X,Z), (padre(Z,Y); madre(Z,Y)), mujer(X).
 
+primo(X,Y) :- (padre(Z,X); madre(Z,X)),(tia(Z,Y)),hombre(X).
+prima(X,Y) :- (padre(Z,X); madre(Z,X)),(tia(Z,Y)),mujer(X).
 
+nieto(X,Y) :- (padre(Y,Z);madre(Y,Z)),(padre(Z,X);madre(Z,X)),hombre(X).
+nieta(X,Y) :- (padre(Y,Z);madre(Y,Z)),(padre(Z,X);madre(Z,X)),mujer(X).
 
+?-nieta(X,mona).
+X= lisa
+X= maggie
 
+?-abuela_paterna(X,lisa).
+X= mona
+
+?-hermana(X,bart).
+X= lisa
+X= maggie
+
+?-nieto(X,clancy).
+X= bart
+
+?-nieta(X,jacqueline).
+X=ling
+X=lisa
+X=maggie
+
+?-tia(X,maggie).
+X=patty
+X=selma
+
+?-primo(X,ling).
+X=bart
+
+?-abuelo_paterno(X,maggie).
+X=abraham
 
 
 
@@ -52,3 +87,8 @@ estadounidense(coronel_west).
 nacion_hostil(corea_del_sur).
 misiles(corea_del_sur).
 venta_armas(coronel_west,corea_del_sur).
+
+criminal(X) :- estadounidense(X), venta_armas(X,Y), nacion_hostil(Y).
+
+?-criminal(coronel_west)
+true
