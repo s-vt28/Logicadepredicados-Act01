@@ -14,18 +14,19 @@ hombre(homero).
 hombre(herbert).
 hombre(bart).
 
+padre(homero,lisa).
+padre(homero,maggie).
+padre(homero,bart).
 padre(abraham,herbert).
 padre(abraham,homero).
-madre(mona,homero).
 padre(clancy,patty).
 padre(clancy,marge).
 padre(clancy,selma).
+
 madre(jacqueline,patty).
 madre(jacqueline,selma).
 madre(jacqueline,marge).
-padre(homero,bart).
-padre(homero,lisa).
-padre(homero,maggie).
+madre(mona,homero).
 madre(marge,bart).
 madre(marge,lisa).
 madre(marge,maggie).
